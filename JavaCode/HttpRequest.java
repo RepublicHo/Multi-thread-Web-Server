@@ -15,14 +15,14 @@ import java.util.StringTokenizer;
  * that extends Thread or implements the Runnable interface in JAVA
  * by overwriting the run() method.
  */
-public class HttpRequest extends Thread{
+public class HttpRequest implements Runnable{
 
     // Data stream and output streams for data transfer
     private BufferedReader clientInputStream;
     private DataOutputStream clientOutputStream;
 
     // Client socket to maintain connection with the client
-    private Socket 	clientSocket;
+    private Socket clientSocket;
     private int conectionID;
 
     // CRLF is to terminate each line of the server's response message
