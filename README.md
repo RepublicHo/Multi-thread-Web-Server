@@ -1,6 +1,8 @@
-# Multi-thread Web Server
+# Multi-threaded Web Server
 
-This project aims to develop a socket program to implement a Web service using the HTTP protocol.
+Given the high performance of threads in modern VM and operating systems, as well as the relative simplicity of building a thread-based server, a thread-based server is usually where we should start with until we are hitting a wall.
+
+This project aims to develop a socket program to implement a multithreaded Web service using the HTTP protocol.
 
 ## Getting started
 The Project consists of 2 JAVA classes:
