@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.sql.SQLOutput;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,9 +11,10 @@ import java.util.StringTokenizer;
 /**
  * @Author: Anthony
  * @Date: 04/12/2022
- * @Description: When we create a new thread of execution, we need to pass
- * to the thread's constructor an instance of some class
- * that extends Thread or implements the Runnable interface in JAVA
+ * @Description: 
+ * When we create a new thread of execution, we need to pass
+ * to the thread's constructor an instance of a class
+ * that subclasses Thread or implements the Runnable interface in JAVA
  * by overwriting the run() method.
  */
 public class HttpRequest implements Runnable{
@@ -29,7 +31,6 @@ public class HttpRequest implements Runnable{
     // with a carriage return and a line feed.
     final static String CRLF = "\r\n";
 
-    // Constructor
     public HttpRequest(Socket socket, int id){
         try{
             // Client socket, and its ID
@@ -219,10 +220,7 @@ public class HttpRequest implements Runnable{
 
             }else{
                 statusLine = "HTTP/1.1 404 Not Found" + CRLF;
-                contentTypeLine = "Content-Type: text/html"+CRLF;
-                entityBody = "<HTML>" +
-                        "<HEAD><TITLE>Not Found</TITLE></HEAD>" +
-                        "<BODY>Not Found</BODY></HTML>";
+                contentTypeLine = "Content-Type: text/html" + CRLF;
             }
 
             // Send the status line
@@ -246,8 +244,11 @@ public class HttpRequest implements Runnable{
                 }// HEAD request returns header but without body
                 fileToClient.close();
             }else{
-
-                clientOutputStream.writeBytes(entityBody);
+                try{
+                    sendFile(new FileInputStream("404.html"));
+                }catch (Exception e){
+                    // e.printStackTrace();
+                }
 
             }
         }
@@ -258,11 +259,9 @@ public class HttpRequest implements Runnable{
         logLine = "Host: " + hostName2 + "\t" +
                 "Access time: " + accessTime + "\t" +
                 "RequestedFileName: " + fileName2 + "\t" +
-                "Response type:" + statusLine;
+                "Response type: " + statusLine;
         System.out.println(logLine);
         requestLog(logLine);
-
-
     }
 
     /**
@@ -286,7 +285,6 @@ public class HttpRequest implements Runnable{
 
             // e.printStackTrace();
         }
-
     }
 
     /**
@@ -314,12 +312,11 @@ public class HttpRequest implements Runnable{
 
         // if it not matches above, return by default
         return "application/octet-stream" ;
-
     }
 
     /**
      * @param data
-     * @return
+     * @return data in Date type
      * @throws ParseException
      */
     private Date parseDate(String data) throws ParseException {
