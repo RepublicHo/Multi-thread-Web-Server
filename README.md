@@ -5,12 +5,13 @@ Given the high performance of threads in modern VM and operating systems, as wel
 This project aims to develop a socket program to implement a multithreaded Web service using the HTTP protocol.
 
 ## Getting started
-The Project consists of 2 JAVA classes:
+The Project consists of 2 JAVA classes for server socket:
 1. Server.java
 2. HttpRequest.java
 You may create a new standard JAVA project called Multi-ThreadedWebServer first, 
 and put these two files into the src folder. 
 
+Also, a client socket is available for testing multithreading features. 
 
 ### Preparation
 1. Get your host name. 
