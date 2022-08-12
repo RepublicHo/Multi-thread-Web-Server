@@ -11,13 +11,16 @@ import java.net.UnknownHostException;
  */
 public class Test1 {
 
-    static final String HOST = "";
-    static final int PORT = 1500;
+    final static String HOST = "";
+    final static int PORT = 1500;
 
     static String[] requests = new String[]{
              "log.txt"
     };
+    
     final static String CRLF = "\r\n";
+    
+    
     public static void main(String[] args) {
         for(int i=0; i<2; i++){
             new Thread(() -> {
@@ -33,13 +36,17 @@ public class Test1 {
                     for(String request:requests){
                         process(request, writer, reader);
                     }
+                    
                     writer.flush();
+                    
                 }catch (UnknownHostException e){
+                    
                     System.out.println("Cannot connected to socket " + HOST
                             + " on port " + 1500);
                 }catch (IOException e){
                     System.err.println(e);
                 }finally {
+                    
                     try{
                         socket.close();
                     }catch (Exception e){
